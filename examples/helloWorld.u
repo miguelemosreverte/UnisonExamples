@@ -1,0 +1,7 @@
+use base
+program : '{io.IO} ()
+program = 'let
+
+  printLine "What is your name?"
+  name = !readLine
+  printLine ("Hello, " ++ name)

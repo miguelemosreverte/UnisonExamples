@@ -1,0 +1,17 @@
+use .base
+
+square : Nat -> Nat
+square x = x * x
+
+use test.v1
+
+test> tests.square.ex1 = run (expect (square 4 == 16))
+
+test> tests.square.prop1 =
+
+
+  go _ = a = !nat
+         b = !nat
+
+         expect (square a * square b == square (a * b))
+  runs 100 go

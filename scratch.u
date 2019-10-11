@@ -1,0 +1,46 @@
+use base
+program : '{io.IO} ()
+program = 'let
+
+  printLine "What is your name?"
+  name = !readLine
+  printLine ("Hello, " ++ name)
+
+> program
+----
+quickstart.dsort : (a -> a -> base.Boolean) -> [a] ->{quickstart.Remote} [a]
+quickstart.dsort lt as =
+  use base.Universal <
+  if base.List.size as < 2 then as
+  else
+    case base.List.halve as of
+      (l, r) ->
+        use quickstart dsort
+        use quickstart.remote force
+        use quickstart.remote.Remote at spawn
+        leftF = at spawn '(dsort lt l)
+        rightF = at spawn '(dsort lt r)
+        quickstart.merge lt (force leftF) (force rightF)
+
+
+> runLocal '(quickstart.dsort (<) [8,2,3,1,4,5,6,7])
+
+
+
+---- Anything below this line is ignored by Unison.
+
+quickstart.dsort : (a -> a -> base.Boolean) -> [a] ->{quickstart.Remote} [a]
+quickstart.dsort lt as =
+  use base.Universal <
+  if base.List.size as < 2 then as
+  else
+    case base.List.halve as of
+      (l, r) ->
+        use quickstart dsort
+        use quickstart.remote force
+        use quickstart.remote.Remote at spawn
+        leftF = at spawn '(dsort lt l)
+        rightF = at spawn '(dsort lt r)
+        quickstart.merge lt (force leftF) (force rightF)
+
+---- Anything below this line is ignored by Unison.
