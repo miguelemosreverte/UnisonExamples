@@ -1,7 +1,16 @@
 use base
+
+incrementar : Nat -> Nat
+incrementar n = n + 1
+
+
 program : '{io.IO} ()
 program = 'let
 
+
+
   printLine "What is your name?"
   name = !readLine
-  printLine ("Hello, " ++ name)
+  printLine("Hello," ++ name)
+  printLine (toText (incrementar 9))
+  printLine "END"
