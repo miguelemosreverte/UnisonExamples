@@ -1,3 +1,6 @@
+test
+execute !program
+update
 execute !program
 find IO
 program
