@@ -1,0 +1,8 @@
+use base
+readFileExample : '{io.IO} ()
+readFileExample = 'let
+
+  path = FilePath "./examples/helloWorld2.u"
+  file = openFile (path)
+  text = getText (file Read)
+  printLine (text)

@@ -1,0 +1,9 @@
+use base
+
+increment : Nat -> Nat
+increment n = n + 1
+
+
+runIncrement : '{io.IO} ()
+runIncrement = 'let
+  printLine (toText (increment 9))
