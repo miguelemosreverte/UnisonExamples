@@ -1,0 +1,19 @@
+use base
+
+fileWordCount path =
+  text = readFile path
+  wordCount = split " " text
+  size wordCount
+
+fileWordCountExample : '{io.IO} ()
+fileWordCountExample = 'let
+    ammountOfWords = fileWordCount "./examples/helloWorld4.u"
+    printLine(toText ammountOfWords)
+---
+use test.v1
+
+test> tests.fileWordCountExample.ex1 = run (
+  'let
+      ammountOfWords = fileWordCount "./examples/helloWorld4.u"
+      expect (ammountOfWords == 36)
+)

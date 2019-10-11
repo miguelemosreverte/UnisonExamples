@@ -1,38 +1,29 @@
 use base
 
-dropWhile_ : [base.Char] -> [base.Char]
-dropWhile_ text =
-  case text of
-    h +: rest | fromCharList([h])==" " ->
-      rest
-    h +: rest ->
-      dropWhile_(rest)
-
-dropWhile_ : [base.Text] -> [base.Text]
-dropWhile text =
-  base.Text.fromCharList(
-    dropWhile_ (
-      base.Text.toCharList(text)
-    )
-  )
+split_ : base.Text -> [base.Char] -> [base.Text] -> [base.Char] -> [base.Text]
+split_ separator chars words word =
+  case chars of
+    char +: rest | fromCharList([char]) == separator ->
+      split_ separator rest (words :+ fromCharList(word)) []
+    char +: rest ->
+      split_ separator rest words (word :+ char)
+    [] ->
+      words
 
 
+split : base.Text -> base.Text -> [base.Text]
+split separator text =
+  chars = toCharList(text ++ separator)
+  words = split_ separator chars [] []
+  words
 
-split_ text =
-  case text of
-    h +: rest | fromCharList([h])==" " ->
-      [h] ++ split_(rest)
-    h +: rest -> [h] ++ base.Text.toCharList("z") ++ split_(rest)
-    [] -> text
-
-split text = split_ (base.Text.toCharList(text))
 
 splitTextExample : '{io.IO} ()
 splitTextExample = 'let
-
-  splitted = split("AB CD")
-  printLine (base.Text.fromCharList(splitted))
-  printLine(dropWhile("AB CD"))
-
----
-h +: rest | base.Text.fromCharList(rest)=="B CD" -> rest
+  text = "AB CD"
+  words = split " " text
+  printLine("Here are your words!\n")
+  base.List.map(
+      printLine
+      ) words
+  printLine("\n")

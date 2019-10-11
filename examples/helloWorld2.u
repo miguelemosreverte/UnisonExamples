@@ -1,8 +1,12 @@
 use base
-readFileExample : '{io.IO} ()
-readFileExample = 'let
 
-  path = FilePath "./examples/helloWorld2.u"
+readFile path_ =
+  path = FilePath path_
   file = openFile (path)
   text = getText (file Read)
+  text
+
+readFileExample : '{io.IO} ()
+readFileExample = 'let
+  text = readFile("./examples/helloWorld2.u")
   printLine (text)
